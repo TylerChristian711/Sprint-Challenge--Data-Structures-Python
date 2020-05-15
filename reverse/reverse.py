@@ -1,6 +1,6 @@
 class Node:
     def __init__(self, value=None, next_node=None):
-        self.value = value
+        self.value = value  # val for this specific node
         self.next_node = next_node
 
     def get_value(self):
@@ -11,6 +11,7 @@ class Node:
 
     def set_next(self, new_next):
         self.next_node = new_next
+
 
 class LinkedList:
     def __init__(self):
@@ -31,12 +32,31 @@ class LinkedList:
         current = self.head
 
         while current:
+            # check if current value matches what we we are looking for
             if current.get_value() == value:
                 return True
 
             current = current.get_next()
-
+            # value we are searching for is not in the list return false
         return False
 
+    def printHelper(self, node, name):
+        if node is None:
+            print(name + " : None")
+        else:
+            print(name + ":" + node.value)
+
     def reverse_list(self, node, prev):
-        pass
+        # A -> B -> C -> D -> 0
+        # D -> C -> B -> A  -> 0
+
+        previous = None
+        current = self.head
+        while current:
+            next = current.next_node
+            current.next_node = previous
+
+            previous = current
+            current = next
+        self.head = previous
+
